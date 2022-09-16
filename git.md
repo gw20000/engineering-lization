@@ -13,11 +13,6 @@ git checkout -b
 
 
 
-
-
-
-
-
 #  撤销 & 回滚
 
 
@@ -302,7 +297,7 @@ amend只能修改最后一次的记录，但是Rebase可以修改更早的
 ## 撤销三兄弟
 Reset （直接回滚/改变历史commit记录）： 改变历史记录【把目前状态设成某个指定的Commit状态，一般用于未push的Commit】
 Rebase（时光机/改变历史commit记录）： 改变历史记录【新增、修改、删除Commit都很方便，一般用于未push的Commit】
-Revert（反转操作/间接反做/间接撤销/不改变历史commit记录）：不改变历史记录【新增一个Commit来对之前的Commit做反转，当然原来的Commit还是会留在历史记录中，一般用于push过的Commit】
+Revert（反转操作/间接反做/间接撤销/不改变历史commit记录）：不改变历史记录【新增一个Commit来对之前的Commit做反转，当然原来的Commit还是会留在历史记录中，**一般用于push过的Commit**】
 
 
 
@@ -335,8 +330,9 @@ f12d8ef (HEAD -> master) add c.txt
 
 ## revert 间接撤销
 
-团队协作开发中常遇到这样的场景 ，最近一个或多个commit 之前 有一个或几个 commit 需要 去掉， 但是显然，这些分支都已经push远端分支 并 合并到了主干分支 ，那么，显然， 主干分支直接回滚不太现实， 否则，最近的版本都要重新操作 
+团队协作开发中常遇到这样的场景 ，最近一个或多个commit 之前 有一个或几个 commit 需要 去掉， 但是显然，这些分支都已经push远端分支 并 合并到了远程主干分支 ，那么，显然， 主干分支直接回滚不太现实， 否则，最近的版本都要重新操作 
 
+（在 Git 开发中通常会控制主干分支的质量，但有时还是会把错误的代码合入到远程主干。 虽然可以直接回滚远程分支， 但有时新的代码也已经合入，直接回滚后最近的提交都要重新操作。 那么有没有只移除某些 Commit 的方式呢？可以一次 revert操作来完成。）
 
 下面的部分就开始介绍具体操作了，同时我们假设远程分支是受保护的（不允许 Force Push）。 思路是从产生一个新的 Commit 撤销之前的错误提交。
 
@@ -372,6 +368,9 @@ git commit -a -m 'This reverts commit 7e345c9 and 551c408'
 
 
 现在的 HEAD（8fef80a）就是我们想要的版本，把它 Push 到远程即可。
+
+wo:  revert  和  cherry-pick 的 作用有些重复了
+
 
 
 
@@ -560,8 +559,9 @@ git branch -u origin/test    (远端test分支必须存在)
 
 git push -u <remote> <branch>
 
-例如 git push -u origin test (如果远端test分支不存在，则，test必须是当前分支的名字，但也可以不是，如下)
- git push -u origin test:test2 (将本地test分支 推送到 远端test2分支 ，并将新建的test2分支 作为 当前分支（test分支）的上游分支)
+例如 git push -u origin test (same as  git push -u test:test 将本地test分支 推送到 远端test分支 ，并将远端test分支（如果远端不存在test分支就在远端新建test分支） 作为 当前分支（本地test分支）的上游分支)
+
+ git push -u origin test:test2 (将本地test分支 推送到 远端test2分支 ，并将远端test2分支（如果远端不存在test2分支就在远端新建test2分支） 作为 当前分支（本地test分支）的上游分支)
 
 例如  git push -u origin main   // 将 当前分支推送 到 远端 main分支，并将远端main分支 设置为 当前分支 的 上游分支/远程跟踪分支/远程关联分支
 
@@ -663,6 +663,8 @@ git rebase --abort   //取消rebase
 
 
 
-//参考内容：https://www.yiibai.com/git/git_fetch.html
+//参考内容：
+//https://www.yiibai.com/git/git_fetch.html
 
 // https://blog.csdn.net/duomengwuyou/article/details/51199597
+
