@@ -31,6 +31,6 @@ npm version minor：1.0.0会变成1.1.0
 
 ## 删除包
 ```
-<pre> npm deprecate <pkg-name>[@<version>] <msg> </pre>
+ npm deprecate <pkg-name>[@<version>] <msg>
 
 ```
