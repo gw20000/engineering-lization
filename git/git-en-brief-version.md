@@ -23,3 +23,5 @@ git config --system --list
 git config --global --list
 
 git config --local --list
+
+git reset head^
