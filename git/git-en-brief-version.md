@@ -1,5 +1,3 @@
-git
-
 git stash
 
 git stash pop
@@ -13,3 +11,7 @@ git lo
 git log —raw
 
 git log —patch
+
+git config --list
+
+git config user.name
