@@ -15,3 +15,11 @@ git log —patch
 git config --list
 
 git config user.name
+
+git config user.name = Rainey
+
+git config --system --list
+
+git config --global --list
+
+git config --local --list
