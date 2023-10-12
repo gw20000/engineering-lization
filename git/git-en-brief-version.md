@@ -12,7 +12,7 @@ git log —raw
 
 git log —patch
 
-git config --list
+git config --list // note: click 'q' to escape from the displayer
 
 git config user.name
 
